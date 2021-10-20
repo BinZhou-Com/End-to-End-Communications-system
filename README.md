@@ -11,6 +11,7 @@ Simulation Results :
 The following figures compares learning based methods with some of the SOTA traditional communication systems.
 It can be understood that the conditional GAN has been able to comprehend the distribution of the corresponding communication channel and even surpasses some of traditional methods.
 
+![Screenshot](awgn results.png)
 
 
 
