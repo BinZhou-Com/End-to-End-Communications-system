@@ -1,0 +1,65 @@
+# hamming coding
+
+import numpy as np
+import matplotlib.pyplot as plt
+def hamming_74(n,k,ebnodbs,num_blocks,p,PSR_dB):
+    PSR = 10**(PSR_dB/10)
+    preal = p[:7] 
+    SNR_dB = ebnodbs  # I think SNR and Eb/No are the same given the way I used them
+    SNR = 10**(SNR_dB/10)
+    SNR_Hamming = SNR*(k/n)
+    #
+    data_bits = np.floor(np.random.uniform(0,2,[k,num_blocks]))
+    data_bits = data_bits.astype(int)
+    parity1 = ( data_bits[0,:] ^ (data_bits[1,:] ^ data_bits[3,:]) )
+    parity2 = ( data_bits[0,:] ^ (data_bits[2,:] ^ data_bits[3,:]) )
+    parity3 = ( data_bits[1,:] ^ (data_bits[2,:] ^ data_bits[3,:]) )
+    Hamming_Code = np.vstack( (data_bits,parity1,parity2,parity3) )
+    #
+    bpsk = -1 * np.ndarray.astype( (Hamming_Code==0)  , int) + Hamming_Code
+    #
+    H = np.array([[1, 1, 0, 1, 1, 0, 0],[1, 0, 1, 1, 0, 1, 0],[0 , 1, 1, 1, 0, 0 ,1]])
+    #P = H[:,:k].T 
+    #
+    messages= np.array([[0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1],
+                        [0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1],
+                        [0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1],
+                        [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1]])
+    messages_p1 = ( messages[0,:] ^ (messages[1,:] ^ messages[3,:]) )
+    messages_p2 = ( messages[0,:] ^ (messages[2,:] ^ messages[3,:]) )
+    messages_p3 = ( messages[1,:] ^ (messages[2,:] ^ messages[3,:]) )
+    messages = np.vstack( (messages,messages_p1,messages_p2,messages_p3) )
+    messages_after_bpsk = -1 * np.ndarray.astype( (messages==0)  , int) + messages
+    
+    
+
+    BLER_MLD = np.zeros(len(SNR_dB))
+    y_decoded_MLD = np.zeros([n,num_blocks])
+    for snr_cntr in range(len(SNR)):
+        y = np.sqrt(2*SNR_Hamming[snr_cntr]) * bpsk + ( np.random.normal(0,1,[n,num_blocks]) )  
+        # Maximum Likelihood Decoding (MLD)
+        for blk_cntr in range(num_blocks):
+            distance = np.zeros([2**k])
+            for clmn_cntr in range(2**k):
+                distance[clmn_cntr] = np.linalg.norm(messages_after_bpsk[:,clmn_cntr] - y[:,blk_cntr]) 
+            y_decoded_MLD[:,blk_cntr] = messages[:, np.argmin(distance)]
+            if np.sum(np.ndarray.astype( np.not_equal(y_decoded_MLD[:4,blk_cntr],data_bits[:,blk_cntr]), int)) > 0:
+                BLER_MLD[snr_cntr] = BLER_MLD[snr_cntr] + (1 / num_blocks)
+    fig, ax = plt.subplots()
+    plt.semilogy(ebnodbs,BLER_MLD,'cD--',label='Hamming(7,4) with MLD')
+    plt.yscale('log')
+    plt.legend(loc='lower left')
+    plt.ylim(1e-4,0.7)
+    plt.xlabel('SNR [dB]')
+    plt.ylabel('BLER')
+    plt.xticks(np.arange(0,21,2.5))
+    plt.grid(True,which = 'both')
+    plt.show()
+    return  BLER_MLD
+
+k = 4
+n = 7
+p = np.zeros([1,2,n])
+num_blocks = 256
+ebnodbs = np.linspace(0,7,8)
+hamming_74(n,k,ebnodbs,num_blocks,p,0.001)

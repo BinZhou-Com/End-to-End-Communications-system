@@ -1,0 +1,13 @@
+a = np.array([0.1796875 , 0.1328125 , 0.05859375, 0.0234375 , 0.01171875,
+       0.00390625,0.00045749,0.00011352])
+
+plt.semilogy(ebnodbs,a,'cD--',label='Hamming(7,4) with MLD')
+plt.yscale('log')
+plt.legend(loc='upper right')
+plt.ylim(1e-4,0.7)
+plt.xlabel('SNR [dB]')
+plt.ylabel('BLER')
+plt.xticks(np.arange(0,21,2.5))
+plt.grid(True,which = 'both')
+plt.savefig(r'C:\Users\parsiansystem\Desktop\Final Project\Hamming with MLD\Hamming.jpg')
+plt.show()
