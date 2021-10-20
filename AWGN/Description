@@ -1,6 +1,0 @@
-In this folder different communication systems are simulated over the AWGN channel including the following :
-1.End-to-End communcation system without a GAN as the channel surrogate.
-2.End-to-End communcation system with a GAN as the channel surrogate.
-3.Recursive systematic convolutional(RSC) encoder with viterbi decoder
-4.Hamming(7,4) code with MLD decoder
-5.Uncoded communication system
