@@ -7,7 +7,9 @@ The following methods have been proposed :
 4. Hamming coding and decoding with Maximum Likelihood Decoder in Rayleigh Fading channel
 5. Hamming coding and decoding with Maximum Likelihood Decoder in AWGN channel
 6...
+
 Simulation Results :
+
 The following figures compares learning based methods with some of the SOTA traditional communication systems.
 It can be understood that the conditional GAN has been able to comprehend the distribution of the corresponding communication channel and even surpasses some of traditional methods.
 
