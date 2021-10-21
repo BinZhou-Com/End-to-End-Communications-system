@@ -10,11 +10,14 @@ The following methods have been proposed :
 
 Simulation Results :
 
-The following figures compares learning based methods with some of the SOTA traditional communication systems.
+The following figures compares learning based methods with some of the SOTA traditional communication systems over 3 communication channels :
+1. AWGN 
+2. Rayleigh Fading
+3. Frequency selective multipath
 It can be understood that the conditional GAN has been able to comprehend the distribution of the corresponding communication channel and even surpasses some of traditional methods.
 
 ![Screenshot](https://github.com/moeinheidari/End-to-End-Communications-system/blob/main/Results/awgn%20results.png)
 ![Screenshot](https://github.com/moeinheidari/End-to-End-Communications-system/blob/main/Results/rayleigh%20results.png)
-![Screenshot](https://github.com/moeinheidari/End-to-End-Communications-system/blob/main/Results/rayleigh%20results.png)
+![Screenshot](https://github.com/moeinheidari/End-to-End-Communications-system/blob/main/Results/multipath%20results.png)
 
 
