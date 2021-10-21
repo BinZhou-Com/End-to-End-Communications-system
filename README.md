@@ -6,7 +6,7 @@ The following methods have been proposed :
 3. End-to-End communication system over Rayleigh channel while the channel is known(No GANs for modeling the channel)
 4. Hamming coding and decoding with Maximum Likelihood Decoder in Rayleigh Fading channel
 5. Hamming coding and decoding with Maximum Likelihood Decoder in AWGN channel
-6...
+6. ...
 
 Simulation Results :
 
